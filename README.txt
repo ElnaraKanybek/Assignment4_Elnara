@@ -1,4 +1,4 @@
 
 Elnara Assignment 4 Git repository link:
 
-https://github.com/ElnaraKanybek/ElnaraAssignment4.git
+https://github.com/ElnaraKanybek/Assignment4_Elnara.git

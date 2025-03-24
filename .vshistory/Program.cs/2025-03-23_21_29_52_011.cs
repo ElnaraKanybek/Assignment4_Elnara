@@ -98,7 +98,7 @@ namespace Assignment4_Elnara
             entry.name = playerName; // store the name of the winner in the struct
 
             Console.Write($"Enter the score of {playerName}: ");
-            while (!int.TryParse(Console.ReadLine(), out entry.score) || entry.score < 0)
+            while (!int.TryParse(Console.ReadLine(), out entry.score) || entry.score < 0) ;
             {
                 Console.Write("Invalid input. Please enter a valid positive score: ");
             }
@@ -129,7 +129,6 @@ namespace Assignment4_Elnara
                 {
                     leaderboard.Remove(existingEntry); // remove the existing entry
                     InsertSortedEntry(leaderboard, entry); // insert the new entry in the sorted order
-                    Console.WriteLine("This winner was already in the leaderboard. Score modified succesfully!");
                 }
                 else
                 {
@@ -139,11 +138,8 @@ namespace Assignment4_Elnara
             else
             {
                 InsertSortedEntry(leaderboard, entry); // insert the new entry in the sorted order
-                Console.WriteLine("Displaying the updated leaderboard...");
             }
-            
-            Thread.Sleep(2000); // wait for  second
-            Console.Clear();
+
             DisplayLeaderboard(leaderboard);
             return leaderboard;
 
@@ -191,8 +187,6 @@ namespace Assignment4_Elnara
             {
                 Console.WriteLine($"{playerName} is not in the leaderboard. Please try again."); // if the winner is not in the leaderboard
             }
-            Thread.Sleep(2000); // wait for 2 seconds
-            Console.Clear();
             DisplayLeaderboard(leaderboard); 
             return leaderboard; // return the updated leaderboard
         }
@@ -215,9 +209,6 @@ namespace Assignment4_Elnara
                 }
             }
             Console.WriteLine($"The leaderboard has been successfully saved to {fileName}.");
-
-            Thread.Sleep(2000); // wait for 2 seconds
-            Console.Clear();
         }
 
         static List<LeaderboardEntry> LoadFromFile( List<LeaderboardEntry> leaderboard)
@@ -249,13 +240,13 @@ namespace Assignment4_Elnara
                     }
                }
                 Console.WriteLine($"The leaderboard has been successfully loaded from {fileName}.");
-                DisplayLeaderboard(leaderboard);
             }
             else
             {
                 Console.WriteLine($"The file {fileName} was not found."); // if the file does not exist or not found
             }
 
+            DisplayLeaderboard(leaderboard);
             return leaderboard; // return the updated leaderboard
         }
 
@@ -263,16 +254,15 @@ namespace Assignment4_Elnara
         {
             leaderboard.Clear();
             Console.WriteLine("The leaderboard has been successfully cleared.");
-            Thread.Sleep(2000); // wait for 2 seconds
-            Console.Clear();
+            DisplayLeaderboard(leaderboard);
             return leaderboard; // return the updated leaderboard
         }
 
         static void DisplayLeaderboard(List<LeaderboardEntry> leaderboard)
         {
-            Console.WriteLine("*****************************************************************************************");
-            Console.WriteLine("                                         Leaderboard                                     ");
-            Console.WriteLine("*****************************************************************************************");
+            Console.WriteLine("*****************************************************");
+            Console.WriteLine("                     Leaderboard                     ");
+            Console.WriteLine("*****************************************************");
             if (leaderboard.Count == 0) // if the leaderboard is empty
             {
                 Console.WriteLine("The leaderboard is empty.");

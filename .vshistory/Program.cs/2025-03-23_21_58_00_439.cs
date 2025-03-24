@@ -263,8 +263,6 @@ namespace Assignment4_Elnara
         {
             leaderboard.Clear();
             Console.WriteLine("The leaderboard has been successfully cleared.");
-            Thread.Sleep(2000); // wait for 2 seconds
-            Console.Clear();
             return leaderboard; // return the updated leaderboard
         }
 

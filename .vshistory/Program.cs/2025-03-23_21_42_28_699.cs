@@ -139,10 +139,8 @@ namespace Assignment4_Elnara
             else
             {
                 InsertSortedEntry(leaderboard, entry); // insert the new entry in the sorted order
-                Console.WriteLine("Displaying the updated leaderboard...");
             }
-            
-            Thread.Sleep(2000); // wait for  second
+            Thread.Sleep(3000); // wait for 1 second
             Console.Clear();
             DisplayLeaderboard(leaderboard);
             return leaderboard;
@@ -192,7 +190,6 @@ namespace Assignment4_Elnara
                 Console.WriteLine($"{playerName} is not in the leaderboard. Please try again."); // if the winner is not in the leaderboard
             }
             Thread.Sleep(2000); // wait for 2 seconds
-            Console.Clear();
             DisplayLeaderboard(leaderboard); 
             return leaderboard; // return the updated leaderboard
         }
@@ -215,9 +212,6 @@ namespace Assignment4_Elnara
                 }
             }
             Console.WriteLine($"The leaderboard has been successfully saved to {fileName}.");
-
-            Thread.Sleep(2000); // wait for 2 seconds
-            Console.Clear();
         }
 
         static List<LeaderboardEntry> LoadFromFile( List<LeaderboardEntry> leaderboard)
@@ -263,16 +257,14 @@ namespace Assignment4_Elnara
         {
             leaderboard.Clear();
             Console.WriteLine("The leaderboard has been successfully cleared.");
-            Thread.Sleep(2000); // wait for 2 seconds
-            Console.Clear();
             return leaderboard; // return the updated leaderboard
         }
 
         static void DisplayLeaderboard(List<LeaderboardEntry> leaderboard)
         {
-            Console.WriteLine("*****************************************************************************************");
-            Console.WriteLine("                                         Leaderboard                                     ");
-            Console.WriteLine("*****************************************************************************************");
+            Console.WriteLine("*****************************************************");
+            Console.WriteLine("                     Leaderboard                     ");
+            Console.WriteLine("*****************************************************");
             if (leaderboard.Count == 0) // if the leaderboard is empty
             {
                 Console.WriteLine("The leaderboard is empty.");

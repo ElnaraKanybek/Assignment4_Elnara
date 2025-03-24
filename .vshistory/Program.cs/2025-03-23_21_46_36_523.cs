@@ -215,9 +215,6 @@ namespace Assignment4_Elnara
                 }
             }
             Console.WriteLine($"The leaderboard has been successfully saved to {fileName}.");
-
-            Thread.Sleep(2000); // wait for 2 seconds
-            Console.Clear();
         }
 
         static List<LeaderboardEntry> LoadFromFile( List<LeaderboardEntry> leaderboard)
@@ -263,16 +260,14 @@ namespace Assignment4_Elnara
         {
             leaderboard.Clear();
             Console.WriteLine("The leaderboard has been successfully cleared.");
-            Thread.Sleep(2000); // wait for 2 seconds
-            Console.Clear();
             return leaderboard; // return the updated leaderboard
         }
 
         static void DisplayLeaderboard(List<LeaderboardEntry> leaderboard)
         {
-            Console.WriteLine("*****************************************************************************************");
-            Console.WriteLine("                                         Leaderboard                                     ");
-            Console.WriteLine("*****************************************************************************************");
+            Console.WriteLine("*****************************************************");
+            Console.WriteLine("                     Leaderboard                     ");
+            Console.WriteLine("*****************************************************");
             if (leaderboard.Count == 0) // if the leaderboard is empty
             {
                 Console.WriteLine("The leaderboard is empty.");

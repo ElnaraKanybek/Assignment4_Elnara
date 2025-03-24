@@ -12,12 +12,15 @@
  *   
  */
 
+
+
+
 namespace Assignment4_Elnara
 {
     internal class Program
     {
         // Define the struct to store winner's info
-        struct LeaderboardEntry
+        struct Winner
         {
             public string name;
             public int score;
@@ -30,7 +33,7 @@ namespace Assignment4_Elnara
         {
             bool running = true; // variable to keep the program running
             int userChoice; // variable to store user input
-            List <LeaderboardEntry> leaderboard= new List<LeaderboardEntry>(); // create a list to store the leaderboard entries for each winner
+            List <Winner> winnerList= new List<Winner>(); // create a list to store the leaderboard entries for each winner
             while (running) 
             {
                 Console.WriteLine("*****************************************************");
@@ -78,14 +81,14 @@ namespace Assignment4_Elnara
                 }
             }
 
+        
+
             Console.ReadLine();
         }
 
-        static void AddWinner(List<Winner> winnerList)
+        static void AddWinner(List< Winner> winnerList) 
         {
-
-
-            LeaderboardEntry entry = new LeaderboardEntry(); // create a new instance of the struct
+            bool successfulConversion; // variable to store the result of the conversion
 
             Console.Write("Enter the name of the winner: ");
             string playerName = Console.ReadLine(); // get the name of the winner
@@ -94,72 +97,41 @@ namespace Assignment4_Elnara
                 Console.Write("Invalid input. Name can't be null, empty or numerical. Please enter a valid name: "); // display according error message 
                 playerName = Console.ReadLine();
             }
-            entry.name = playerName; // store the name of the winner in the struct
 
-            Console.Write($"Enter the score of {playerName}: ");
-            while (!int.TryParse(Console.ReadLine(), out entry.score) || entry.score < 0) ;
+            Console.Write("Enter the score of {playerName}: ");
+            successfulConversion = int.TryParse(Console.ReadLine(), out int playerScore);
+            while (!successfulConversion || playerScore < 0 || playerScore > 1000000) // Max score is 1 000 000
             {
-                Console.Write("Invalid input. Please enter a valid positive score: ");
+                Console.Write("Invalid input. Please enter a valid age: ");
+                successfulConversion = int.TryParse(Console.ReadLine(), out playerScore);
             }
 
-            Console.Write($"Enter the game ending time (YYYY-MM-DD HH:mm:ss): ");
-
-            while (!DateTime.TryParse(Console.ReadLine(), out entry.endTime);)
+            Console.Write($"Enter the game end time of {playerName} in this format (hour:min): ");
+            successfulConversion = DateTime.TryParse(Console.ReadLine(), out DateTime gameEndTime);
+            while (!successfulConversion)
             {
-                Console.Write("Invalid input. Please enter a valid game end time (YYYY-MM-DD HH:mm:ss): ");
+                Console.Write("Invalid input. Please enter a valid game end time : ");
+                successfulConversion = DateTime.TryParse(Console.ReadLine(), out gameEndTime);
             }
 
             Console.Write($"Enter the number of games played by {playerName} : ");
-            while (!int.TryParse(Console.ReadLine(), out entry.gamesPlayed) || entry.gamesPlayed < 0 || entry.gamesPlayed > 1000000) // Max of games played is 1 000 000
+            successfulConversion = int.TryParse(Console.ReadLine(), out int gamesPlayed);
+            while (!successfulConversion || playerScore < 0 || playerScore > 1000000) // Max of games played is 1 000 000
             {
                 Console.Write("Invalid input. Please enter a valid number: ");
+                successfulConversion = int.TryParse(Console.ReadLine(), out playerScore);
             }
 
             Console.Write($"Enter the age of {playerName}: ");
-            while (!int.TryParse(Console.ReadLine(), out entry.Age) || entry.Age < 0 || entry.Age > 130)
+            successfulConversion = int.TryParse(Console.ReadLine(), out int playerAge);
+            while (!successfulConversion || playerAge < 0 || playerAge > 130)
             {
                 Console.Write("Invalid input. Please enter a valid age: ");
+                successfulConversion = int.TryParse(Console.ReadLine(), out playerAge);
             }
-
-            var existingEntry = LeaderboardEntry.FirstOrDefault(x => x.name == entry.name); // check if the winner is already in the leaderboard
-            if (existingEntry.name != null) // if the winner is already in the leaderboard
-            {
-                if (entry.score > existingEntry.score) // if the new score is higher than the existing score
-                {
-                    LeaderboardEntry.Remove(existingEntry); // remove the existing entry
-                    InsertSortedEntry(entry); // insert the new entry in the sorted order
-                }
-                else
-                {
-                    Console.WriteLine("The winner is already in the leaderboard with a higher score. Please try again.");
-                }
-            }
-            else
-            {
-                InsertSortedEntry(entry); // insert the new entry in the sorted order
-            }
-
-            DisplayLeaderboard(); 
-
+            winnerList.Add(); // add new winner info to the list
         }
-        static void InsertSortedEntry(LeaderboardEntry entry)
-        {
-            if (LeaderboardEntry.Count == 0) // if the leaderboard is empty
-            {
-                LeaderboardEntry.Add(entry); // add the entry to the leaderboard
-            }
-            else
-            {
-                for (int i = 0; i < LeaderboardEntry.Count; i++) // loop through the leaderboard
-                {
-                    if (entry.score > LeaderboardEntry[i].score) // if the new entry score is higher than the current entry score
-                    {
-                        LeaderboardEntry.Insert(i, entry); // insert the new entry in the sorted order
-                        break;
-                    }
-                }
-            }
-        }
+
         static void DeleteEntry()
         { 
         }

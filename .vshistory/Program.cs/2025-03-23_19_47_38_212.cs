@@ -134,12 +134,6 @@ namespace Assignment4_Elnara
                     Console.WriteLine("The winner is already in the leaderboard with a higher score. Please try again.");
                 }
             }
-            else
-            {
-                InsertSortedEntry(entry); // insert the new entry in the sorted order
-            }
-
-            DisplayLeaderboard(); 
 
         }
         static void InsertSortedEntry(LeaderboardEntry entry)

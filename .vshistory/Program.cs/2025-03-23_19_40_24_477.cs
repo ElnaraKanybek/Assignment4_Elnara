@@ -81,9 +81,9 @@ namespace Assignment4_Elnara
             Console.ReadLine();
         }
 
-        static void AddWinner(List<Winner> winnerList)
+        static void AddWinner(List< Winner> winnerList) 
         {
-
+            
 
             LeaderboardEntry entry = new LeaderboardEntry(); // create a new instance of the struct
 
@@ -97,20 +97,20 @@ namespace Assignment4_Elnara
             entry.name = playerName; // store the name of the winner in the struct
 
             Console.Write($"Enter the score of {playerName}: ");
-            while (!int.TryParse(Console.ReadLine(), out entry.score) || entry.score < 0) ;
+            while (!int.TryParse(Console.ReadLine(), out entry.score) || entry.score < 0) ; 
             {
                 Console.Write("Invalid input. Please enter a valid positive score: ");
             }
 
             Console.Write($"Enter the game ending time (YYYY-MM-DD HH:mm:ss): ");
-
+            
             while (!DateTime.TryParse(Console.ReadLine(), out entry.endTime);)
             {
                 Console.Write("Invalid input. Please enter a valid game end time (YYYY-MM-DD HH:mm:ss): ");
             }
 
             Console.Write($"Enter the number of games played by {playerName} : ");
-            while (!int.TryParse(Console.ReadLine(), out entry.gamesPlayed) || entry.gamesPlayed < 0 || entry.gamesPlayed > 1000000) // Max of games played is 1 000 000
+            while (!int.TryParse(Console.ReadLine(), out  entry.gamesPlayed) || entry.gamesPlayed < 0 || entry.gamesPlayed > 1000000) // Max of games played is 1 000 000
             {
                 Console.Write("Invalid input. Please enter a valid number: ");
             }
@@ -118,48 +118,25 @@ namespace Assignment4_Elnara
             Console.Write($"Enter the age of {playerName}: ");
             while (!int.TryParse(Console.ReadLine(), out entry.Age) || entry.Age < 0 || entry.Age > 130)
             {
-                Console.Write("Invalid input. Please enter a valid age: ");
+                Console.Write("Invalid input. Please enter a valid age: ");   
             }
-
+            
             var existingEntry = LeaderboardEntry.FirstOrDefault(x => x.name == entry.name); // check if the winner is already in the leaderboard
             if (existingEntry.name != null) // if the winner is already in the leaderboard
             {
                 if (entry.score > existingEntry.score) // if the new score is higher than the existing score
                 {
-                    LeaderboardEntry.Remove(existingEntry); // remove the existing entry
-                    InsertSortedEntry(entry); // insert the new entry in the sorted order
+                    existingEntry.score = entry.score; // update the score
+                    existingEntry.endTime = entry.endTime; // update the end time
+                    existingEntry.gamesPlayed = entry.gamesPlayed; // update the number of games played
+                    existingEntry.age = entry.age; // update the age
                 }
                 else
                 {
                     Console.WriteLine("The winner is already in the leaderboard with a higher score. Please try again.");
                 }
             }
-            else
-            {
-                InsertSortedEntry(entry); // insert the new entry in the sorted order
-            }
 
-            DisplayLeaderboard(); 
-
-        }
-        static void InsertSortedEntry(LeaderboardEntry entry)
-        {
-            if (LeaderboardEntry.Count == 0) // if the leaderboard is empty
-            {
-                LeaderboardEntry.Add(entry); // add the entry to the leaderboard
-            }
-            else
-            {
-                for (int i = 0; i < LeaderboardEntry.Count; i++) // loop through the leaderboard
-                {
-                    if (entry.score > LeaderboardEntry[i].score) // if the new entry score is higher than the current entry score
-                    {
-                        LeaderboardEntry.Insert(i, entry); // insert the new entry in the sorted order
-                        break;
-                    }
-                }
-            }
-        }
         static void DeleteEntry()
         { 
         }

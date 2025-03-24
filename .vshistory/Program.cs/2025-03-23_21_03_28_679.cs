@@ -105,7 +105,7 @@ namespace Assignment4_Elnara
 
             while (!DateTime.TryParse(Console.ReadLine(), out entry.endTime);)
             {
-                Console.Write("Invalid input. Please enter a valid game end time (yyyy-MM-dd HH:mm:ss): ");
+                Console.Write("Invalid input. Please enter a valid game end time (YYYY-MM-DD HH:mm:ss): ");
             }
 
             Console.Write($"Enter the number of games played by {playerName} : ");
@@ -164,7 +164,7 @@ namespace Assignment4_Elnara
             return leaderboard;
         }
         //Method to delete an entry from the leaderboard
-        static List<LeaderboardEntry> DeleteEntry(List<LeaderboardEntry> leaderboard)
+        static void DeleteEntry()
         {
             Console.Write("Enter the name of the winner you want to delete: ");
             string playerName = Console.ReadLine(); // get the name of the winner to delete
@@ -174,22 +174,21 @@ namespace Assignment4_Elnara
                 Console.Write("Invalid input. Name can't be null, empty or numerical. Please enter a valid name: "); // display according error message 
                 playerName = Console.ReadLine();
             }
-            var existingEntry = leaderboard.FirstOrDefault(x => x.name == playerName); // check if the winner is in the leaderboard
+            var existingEntry = LeaderboardEntry.FirstOrDefault(x => x.name == playerName); // check if the winner is in the leaderboard
             if (existingEntry.name != null) // if the winner is in the leaderboard
             {
-                leaderboard.Remove(existingEntry); // remove the winner from the leaderboard
+                LeaderboardEntry.Remove(existingEntry); // remove the winner from the leaderboard
                 Console.WriteLine($"{playerName} has been successfully removed from the leaderboard.");
             }
             else
             {
                 Console.WriteLine($"{playerName} is not in the leaderboard. Please try again."); // if the winner is not in the leaderboard
             }
-            DisplayLeaderboard(leaderboard); 
-            return leaderboard; // return the updated leaderboard
+            DisplayLeaderboard();
         }
 
         // Method to save the leaderboard to a CSV file
-        static void SaveToFile(List<LeaderboardEntry> leaderboard)
+        static void SaveToFile()
         {
             Console.Write("Enter the file name to save the leaderboard: ");
             string fileName = Console.ReadLine(); // get the file name to save the leaderboard
@@ -200,15 +199,15 @@ namespace Assignment4_Elnara
             }
             using (StreamWriter writer = new StreamWriter(fileName)) // create a new instance of the stream writer
             {
-                foreach (var entry in leaderboard) // loop through the leaderboard
+                foreach (var entry in LeaderboardEntry) // loop through the leaderboard
                 {
-                    writer.WriteLine($"{entry.name},{entry.score},{entry.endTime:yyyy-MM-dd HH:mm:ss},{entry.gamesPlayed},{entry.age}"); // write the entry to the file
+                    writer.WriteLine($"{entry.name},{entry.score},{entry.endTime},{entry.gamesPlayed},{entry.age}"); // write the entry to the file
                 }
             }
             Console.WriteLine($"The leaderboard has been successfully saved to {fileName}.");
         }
 
-        static List<LeaderboardEntry> LoadFromFile( List<LeaderboardEntry> leaderboard)
+        static void LoadFromFile()
         {
             Console.Write("Enter the file name to load the leaderboard: ");
             string fileName = Console.ReadLine(); // get the file name to load the leaderboard
@@ -220,7 +219,7 @@ namespace Assignment4_Elnara
             if (File.Exists(fileName)) // check if the file exists
             { leaderboard.Clear() // clear the leaderboard
                using (StreamReader reader = new StreamReader(fileName)) // create a new instance of the stream reader
-               {
+                {
                     string line;
                     while ((line = reader.ReadLine()) != null) // read the file line by line
                     {
@@ -232,34 +231,31 @@ namespace Assignment4_Elnara
                         entry.endTime = DateTime.Parse(parts[2]); // store the end time of the game
                         entry.gamesPlayed = int.Parse(parts[3]); // store the number of games played
                         entry.age = int.Parse(parts[4]); // store the age of the winner
-                        leaderboard = InsertSortedEntry(leaderboard, entry); // insert the entry in the sorted order
+                        leaderboard.Add(entry); // add the entry to the leaderboard
                     }
                }
+                
                 Console.WriteLine($"The leaderboard has been successfully loaded from {fileName}.");
             }
             else
             {
                 Console.WriteLine($"The file {fileName} was not found."); // if the file does not exist or not found
             }
-
-            DisplayLeaderboard(leaderboard);
-            return leaderboard; // return the updated leaderboard
         }
 
-        static List <LeaderboardEntry> ClearLeaderboard(List<LeaderboardEntry> leaderboard)
+        static void ClearLeaderboard()
         {
             leaderboard.Clear();
             Console.WriteLine("The leaderboard has been successfully cleared.");
-            DisplayLeaderboard(leaderboard);
-            return leaderboard; // return the updated leaderboard
+            DisplayLeaderboard();
         }
 
-        static void DisplayLeaderBoard(List<LeaderboardEntry> leaderboard)
+        static void DisplayLeaderBoard()
         {
             Console.WriteLine("*****************************************************");
             Console.WriteLine("                     Leaderboard                     ");
             Console.WriteLine("*****************************************************");
-            if (leaderboard.Count == 0) // if the leaderboard is empty
+            if (LeaderboardEntry.Count == 0) // if the leaderboard is empty
             {
                 Console.WriteLine("The leaderboard is empty.");
             }
@@ -271,12 +267,12 @@ namespace Assignment4_Elnara
                     if (i == 0)
                     {
                         Console.ForegroundColor = ConsoleColor.Green; // set the color to green for the first entry
-                        Console.WriteLine($"{i + 1}. {entry.name} - {entry.score} points (Hight Score) - {entry.endTime:yyyy-MM-dd HH:mm:ss} - Number of games played: {entry.gamesPlayed} - Age: {entry.age}");
+                        Console.WriteLine($"{i + 1}. {entry.name} - {entry.score} points (Hight Score) - {entry.endTime} - Number of games played: {entry.gamesPlayed} - Age: {entry.age}");
                         Console.ResetColor(); // reset the color
                     }
                     else
                     {
-                        Console.WriteLine($"{i + 1}. {entry.name} - {entry.score} points - {entry.endTime:yyyy-MM-dd HH:mm:ss} - Number of games played: {entry.gamesPlayed} - Age: {entry.age}");
+                        Console.WriteLine($"{i + 1}. {entry.name} - {entry.score} points - {entry.endTime} - Number of games played: {entry.gamesPlayed} - Age: {entry.age}");
                     }
                 }
             }

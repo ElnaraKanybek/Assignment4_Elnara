@@ -230,8 +230,9 @@ namespace Assignment4_Elnara
                         entry.age = int.Parse(parts[4]); // store the age of the winner
                         leaderboard.Add(entry); // add the entry to the leaderboard
                     }
-               }
-                
+
+                }
+
                 Console.WriteLine($"The leaderboard has been successfully loaded from {fileName}.");
             }
             else

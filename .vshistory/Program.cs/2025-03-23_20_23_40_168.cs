@@ -214,9 +214,9 @@ namespace Assignment4_Elnara
                 fileName = Console.ReadLine();
             }
             if (File.Exists(fileName)) // check if the file exists
-            { leaderboard.Clear() // clear the leaderboard
+            {  leaderboard.Clear() // clear the leaderboard
                using (StreamReader reader = new StreamReader(fileName)) // create a new instance of the stream reader
-                {
+               {
                     string line;
                     while ((line = reader.ReadLine()) != null) // read the file line by line
                     {
@@ -230,14 +230,11 @@ namespace Assignment4_Elnara
                         entry.age = int.Parse(parts[4]); // store the age of the winner
                         leaderboard.Add(entry); // add the entry to the leaderboard
                     }
-               }
-                
-                Console.WriteLine($"The leaderboard has been successfully loaded from {fileName}.");
+
+                }
             }
-            else
-            {
-                Console.WriteLine($"The file {fileName} was not found."); // if the file does not exist or not found
-            }
+
+            leaderboard = 
         }
 
         static void ClearLeaderboard()

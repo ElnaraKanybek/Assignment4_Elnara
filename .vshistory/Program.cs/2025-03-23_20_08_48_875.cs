@@ -206,38 +206,6 @@ namespace Assignment4_Elnara
 
         static void LoadFromFile()
         {
-            Console.Write("Enter the file name to load the leaderboard: ");
-            string fileName = Console.ReadLine(); // get the file name to load the leaderboard
-            while (string.IsNullOrEmpty(fileName)) // to make sure the input is not null or empty
-            {
-                Console.Write("Invalid input. File name can't be null or empty. Please enter a valid file name: "); // display according error message 
-                fileName = Console.ReadLine();
-            }
-            if (File.Exists(fileName)) // check if the file exists
-            { leaderboard.Clear() // clear the leaderboard
-               using (StreamReader reader = new StreamReader(fileName)) // create a new instance of the stream reader
-                {
-                    string line;
-                    while ((line = reader.ReadLine()) != null) // read the file line by line
-                    {
-                        string[] parts = line.Split(','); // split the line by comma
-                        LeaderboardEntry entry = new LeaderboardEntry(); // create a new instance of the struct
-
-                        entry.name = parts[0]; // store the name of the winner
-                        entry.score = int.Parse(parts[1]); // store the score of the winner
-                        entry.endTime = DateTime.Parse(parts[2]); // store the end time of the game
-                        entry.gamesPlayed = int.Parse(parts[3]); // store the number of games played
-                        entry.age = int.Parse(parts[4]); // store the age of the winner
-                        leaderboard.Add(entry); // add the entry to the leaderboard
-                    }
-               }
-                
-                Console.WriteLine($"The leaderboard has been successfully loaded from {fileName}.");
-            }
-            else
-            {
-                Console.WriteLine($"The file {fileName} was not found."); // if the file does not exist or not found
-            }
         }
 
         static void ClearLeaderboard()

@@ -12,8 +12,6 @@
  *   
  */
 
-using System.Text.RegularExpressions;
-
 namespace Assignment4_Elnara
 {
     internal class Program
@@ -51,7 +49,7 @@ namespace Assignment4_Elnara
                 while (!int.TryParse(Console.ReadLine(), out userChoice)) // check if the input is valid
                 {
                     Console.Write("Error, Invalid Input. Please choose from the menu options (1-6): "); // display error message
-
+                
                 }
 
                 switch (userChoice)
@@ -72,7 +70,7 @@ namespace Assignment4_Elnara
                         leaderboard = ClearLeaderboard(leaderboard);// Clear the leaderboard
                         break;
                     case 6:
-                        running = QuitProgram(); // Quit the program
+                        running = QuitProgram(leaderboard); // Quit the program
                         break;
                     default:
                         Console.WriteLine("Invalid input. Please choose from the menu options (1-6)");
@@ -105,7 +103,7 @@ namespace Assignment4_Elnara
 
             Console.Write($"Enter the game ending time (YYYY-MM-DD HH:mm:ss): ");
 
-            while (!DateTime.TryParse(Console.ReadLine(), out entry.endTime))
+            while (!DateTime.TryParse(Console.ReadLine(), out entry.endTime);)
             {
                 Console.Write("Invalid input. Please enter a valid game end time (yyyy-MM-dd HH:mm:ss): ");
             }
@@ -117,7 +115,7 @@ namespace Assignment4_Elnara
             }
 
             Console.Write($"Enter the age of {playerName}: ");
-            while (!int.TryParse(Console.ReadLine(), out entry.age) || entry.age < 0 || entry.age > 130)
+            while (!int.TryParse(Console.ReadLine(), out entry.Age) || entry.Age < 0 || entry.Age > 130)
             {
                 Console.Write("Invalid input. Please enter a valid age: ");
             }
@@ -127,7 +125,7 @@ namespace Assignment4_Elnara
             {
                 if (entry.score > existingEntry.score) // if the new score is higher than the existing score
                 {
-                    leaderboard.Remove(existingEntry); // remove the existing entry
+                    LeaderboardEntry.Remove(existingEntry); // remove the existing entry
                     InsertSortedEntry(leaderboard, entry); // insert the new entry in the sorted order
                 }
                 else
@@ -149,8 +147,7 @@ namespace Assignment4_Elnara
         {
             if (leaderboard.Count == 0) // if the leaderboard is empty
             {
-                int index = 0;
-                leaderboard.Insert(index, entry); // add the entry to the leaderboard
+                leaderboard.Insert(entry); // add the entry to the leaderboard
             }
             else
             {
@@ -221,8 +218,7 @@ namespace Assignment4_Elnara
                 fileName = Console.ReadLine();
             }
             if (File.Exists(fileName)) // check if the file exists
-            { 
-                leaderboard.Clear(); // clear the leaderboard
+            { leaderboard.Clear() // clear the leaderboard
                using (StreamReader reader = new StreamReader(fileName)) // create a new instance of the stream reader
                {
                     string line;
@@ -258,7 +254,7 @@ namespace Assignment4_Elnara
             return leaderboard; // return the updated leaderboard
         }
 
-        static void DisplayLeaderboard(List<LeaderboardEntry> leaderboard)
+        static void DisplayLeaderBoard(List<LeaderboardEntry> leaderboard)
         {
             Console.WriteLine("*****************************************************");
             Console.WriteLine("                     Leaderboard                     ");
@@ -302,4 +298,3 @@ namespace Assignment4_Elnara
             }
         }
     }
-}

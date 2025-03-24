@@ -72,7 +72,7 @@ namespace Assignment4_Elnara
                         leaderboard = ClearLeaderboard(leaderboard);// Clear the leaderboard
                         break;
                     case 6:
-                        running = QuitProgram(); // Quit the program
+                        running = QuitProgram(leaderboard); // Quit the program
                         break;
                     default:
                         Console.WriteLine("Invalid input. Please choose from the menu options (1-6)");
@@ -302,4 +302,3 @@ namespace Assignment4_Elnara
             }
         }
     }
-}

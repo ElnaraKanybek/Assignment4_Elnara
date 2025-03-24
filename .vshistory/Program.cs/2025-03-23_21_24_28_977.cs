@@ -12,8 +12,6 @@
  *   
  */
 
-using System.Text.RegularExpressions;
-
 namespace Assignment4_Elnara
 {
     internal class Program
@@ -72,7 +70,7 @@ namespace Assignment4_Elnara
                         leaderboard = ClearLeaderboard(leaderboard);// Clear the leaderboard
                         break;
                     case 6:
-                        running = QuitProgram(); // Quit the program
+                        running = QuitProgram(leaderboard); // Quit the program
                         break;
                     default:
                         Console.WriteLine("Invalid input. Please choose from the menu options (1-6)");
@@ -127,7 +125,7 @@ namespace Assignment4_Elnara
             {
                 if (entry.score > existingEntry.score) // if the new score is higher than the existing score
                 {
-                    leaderboard.Remove(existingEntry); // remove the existing entry
+                    LeaderboardEntry.Remove(existingEntry); // remove the existing entry
                     InsertSortedEntry(leaderboard, entry); // insert the new entry in the sorted order
                 }
                 else
@@ -149,8 +147,7 @@ namespace Assignment4_Elnara
         {
             if (leaderboard.Count == 0) // if the leaderboard is empty
             {
-                int index = 0;
-                leaderboard.Insert(index, entry); // add the entry to the leaderboard
+                leaderboard.Insert(entry); // add the entry to the leaderboard
             }
             else
             {
@@ -302,4 +299,3 @@ namespace Assignment4_Elnara
             }
         }
     }
-}

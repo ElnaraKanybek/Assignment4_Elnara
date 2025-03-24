@@ -79,6 +79,7 @@ namespace Assignment4_Elnara
                         break;
                 }
             }
+
             Console.ReadLine();
         }
 
@@ -158,7 +159,7 @@ namespace Assignment4_Elnara
                 leaderboard = InsertSortedEntry(leaderboard, entry); // insert the new entry in the sorted order
                 Console.WriteLine("Displaying the updated leaderboard...");
             }
-
+            
             Thread.Sleep(2000); // wait for  second
             Console.Clear();
             DisplayLeaderboard(leaderboard);

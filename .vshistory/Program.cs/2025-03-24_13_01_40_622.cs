@@ -79,6 +79,7 @@ namespace Assignment4_Elnara
                         break;
                 }
             }
+
             Console.ReadLine();
         }
 
@@ -98,7 +99,7 @@ namespace Assignment4_Elnara
 
             Console.Write($"Enter the score of {playerName}: ");
            
-            while (!int.TryParse(Console.ReadLine(), out entry.score) || entry.score < 0) // check if the score is a valid positive number
+            while (!int.TryParse(Console.ReadLine(), out entry.score) || entry.score < 0)
             {
                 Console.Write("Invalid input. Please enter a valid positive score: ");
             }
@@ -117,7 +118,7 @@ namespace Assignment4_Elnara
                         }
                         else
                         {
-                            Console.WriteLine("Date cannot be in the future. Please enter a valid date: "); // display error message
+                            Console.WriteLine("Date cannot be in the future. Please enter a valid date: ");
                         }
                     }
                     else
@@ -158,7 +159,7 @@ namespace Assignment4_Elnara
                 leaderboard = InsertSortedEntry(leaderboard, entry); // insert the new entry in the sorted order
                 Console.WriteLine("Displaying the updated leaderboard...");
             }
-
+            
             Thread.Sleep(2000); // wait for  second
             Console.Clear();
             DisplayLeaderboard(leaderboard);
@@ -230,7 +231,7 @@ namespace Assignment4_Elnara
 
                 Console.WriteLine($"The leaderboard has been successfully saved!");
                 Console.WriteLine("Press any keys to continue");
-                Console.ReadKey(); // wait for the user key stroke
+                Console.ReadKey();
             }
             catch (Exception ex) 
             {
@@ -353,7 +354,6 @@ namespace Assignment4_Elnara
             }
             else
             {
-                Console.Clear();
                 return true; // return true to keep the program running since choice is not Yes
             }
         }

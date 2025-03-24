@@ -55,7 +55,7 @@ namespace Assignment4_Elnara
                 switch (userChoice)
                 {
                     case 1:
-                        AddWinner(); // Add winner to leaderboard
+                        AddWinner(winnerList); // Add winner to leaderboard
                         break;
                     case 2:
                         DeleteEntry(); // Delete an entry from the leaderboard
@@ -82,7 +82,7 @@ namespace Assignment4_Elnara
         }
 
         // Method to add a winner to the leaderboard
-        static void AddWinner()
+        static void AddWinner(List<Winner> winnerList)
         {
             LeaderboardEntry entry = new LeaderboardEntry(); // create a new instance of the struct
 
@@ -242,37 +242,7 @@ namespace Assignment4_Elnara
 
         static void ClearLeaderboard()
         {
-            leaderboard.Clear();
-            Console.WriteLine("The leaderboard has been successfully cleared.");
-            DisplayLeaderboard();
         }
-
-        static void DisplayLeaderBoard()
-        {
-            Console.WriteLine("*****************************************************");
-            Console.WriteLine("                     Leaderboard                     ");
-            Console.WriteLine("*****************************************************");
-            if (LeaderboardEntry.Count == 0) // if the leaderboard is empty
-            {
-                Console.WriteLine("The leaderboard is empty.");
-            }
-            else
-            {
-               for (int i = 0; i <leaderboard.Count; i++) // loop through the leaderboard
-               {
-                   var entry = leaderboard[i]; // get the entry
-                    if (i == 0)
-                    {
-                        Console.ForegroundColor = ConsoleColor.Green; // set the color to green for the first entry
-                        Console.WriteLine($"{i + 1}. {entry.name} - {entry.score} points (Hight Score) - {entry.endTime} - Number of games played: {entry.gamesPlayed} - Age: {entry.age}");
-                        Console.ResetColor(); // reset the color
-                    }
-                    else 
-                    {
-                        Console.WriteLine($"{i + 1}. {entry.name} - {entry.score} points - {entry.endTime} - Number of games played: {entry.gamesPlayed} - Age: {entry.age}");
-                    }
-               }
-            }
 
         static void QuitProgram()
         {

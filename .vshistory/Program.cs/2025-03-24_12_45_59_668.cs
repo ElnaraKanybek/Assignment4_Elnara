@@ -241,10 +241,7 @@ namespace Assignment4_Elnara
             }
             finally 
             {
-                if(writer != null)
-                {
-                    writer.Close(); // close the writer
-                }
+              writer?.Close(); // close the writer
             }
 
             Console.Clear();

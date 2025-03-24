@@ -108,25 +108,24 @@ namespace Assignment4_Elnara
             while (!validDate) 
             {
                 Console.Write($"Enter the game ending time (yyyy-MM-dd HH:mm:ss): "); // get the end time of the game
-                while (!validDate)
+                while (true)
                 {
+                    string input = Console.ReadLine();
                     if (DateTime.TryParse(Console.ReadLine(), out entry.endTime))
                     {
                         if (entry.endTime <= DateTime.Now) // check if the end time is in the future
                         {
-                            validDate = true;
-                        }
-                        else
-                        {
-                            Console.WriteLine("Date cannot be in the future. Please enter a valid date: ");
+                            Console.Write("Invalid input. Please enter a valid game end time (yyyy-MM-dd HH:mm:ss): ");
                         }
                     }
                     else
                     {
                         Console.Write("Invalid input. Please enter a valid game end time (yyyy-MM-dd HH:mm:ss): ");
                     }
+                    Console.Write("Enter the game ending time (yyyy-MM-dd HH:mm:ss): ");
                 }
             }
+           
 
             Console.Write($"Enter the number of games played by {playerName} : ");
             while (!int.TryParse(Console.ReadLine(), out entry.gamesPlayed) || entry.gamesPlayed < 0 || entry.gamesPlayed > 1000000) // Max of games played is 1 000 000
@@ -208,7 +207,7 @@ namespace Assignment4_Elnara
         // Method to save the leaderboard to a CSV file
         static void SaveToFile(List<LeaderboardEntry> leaderboard)
         {
-            Console.Write("Enter the relative file path to save the leaderboard ex:'../../../(fileName)': ");
+            Console.Write("Enter the full file path to save the leaderboard: ");
             string? filePath = Console.ReadLine(); // get the file name to save the leaderboard
             while (string.IsNullOrEmpty(filePath)) // to make sure the input is not null or empty
             {
@@ -230,21 +229,18 @@ namespace Assignment4_Elnara
                 }
 
                 Console.WriteLine($"The leaderboard has been successfully saved!");
-                Console.WriteLine("Press any keys to continue");
+                Console.WriteLine("Press any keys to continuer");
                 Console.ReadKey();
             }
             catch (Exception ex) 
             {
                 Console.WriteLine($"An error occurred while saving the leaderboard: {ex.Message}"); // display the error message
-                Console.WriteLine("Press any keys to continue");
+                Console.WriteLine("Press any keys to continuer");
                 Console.ReadKey();
             }
             finally 
             {
-                if(writer != null)
-                {
-                    writer.Close(); // close the writer
-                }
+              writer?.Close(); // close the writer
             }
 
             Console.Clear();
@@ -252,7 +248,7 @@ namespace Assignment4_Elnara
 
         static List<LeaderboardEntry> LoadFromFile( List<LeaderboardEntry> leaderboard)
         {
-            Console.Write("Enter the relative file path to load the leaderboard ex:'../../../(fileName)'");
+            Console.Write("Enter the full file path to load the leaderboard: ");
             string? filePath = Console.ReadLine(); // get the file name to load the leaderboard
             while (string.IsNullOrEmpty(filePath)) // to make sure the input is not null or empty
             {

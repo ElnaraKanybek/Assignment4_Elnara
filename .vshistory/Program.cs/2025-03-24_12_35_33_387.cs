@@ -208,7 +208,7 @@ namespace Assignment4_Elnara
         // Method to save the leaderboard to a CSV file
         static void SaveToFile(List<LeaderboardEntry> leaderboard)
         {
-            Console.Write("Enter the relative file path to save the leaderboard ex:'../../../(fileName)': ");
+            Console.Write("Enter the full file path to save the leaderboard: ");
             string? filePath = Console.ReadLine(); // get the file name to save the leaderboard
             while (string.IsNullOrEmpty(filePath)) // to make sure the input is not null or empty
             {
@@ -241,10 +241,7 @@ namespace Assignment4_Elnara
             }
             finally 
             {
-                if(writer != null)
-                {
-                    writer.Close(); // close the writer
-                }
+              writer?.Close(); // close the writer
             }
 
             Console.Clear();
@@ -252,7 +249,7 @@ namespace Assignment4_Elnara
 
         static List<LeaderboardEntry> LoadFromFile( List<LeaderboardEntry> leaderboard)
         {
-            Console.Write("Enter the relative file path to load the leaderboard ex:'../../../(fileName)'");
+            Console.Write("Enter the full file path to load the leaderboard: ");
             string? filePath = Console.ReadLine(); // get the file name to load the leaderboard
             while (string.IsNullOrEmpty(filePath)) // to make sure the input is not null or empty
             {

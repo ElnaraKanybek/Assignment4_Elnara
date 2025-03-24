@@ -21,7 +21,7 @@ namespace Assignment4_Elnara
     {
         static void Main(string[] args)
         {
-            int userChoice; // variable to store user input
+            int userChoice;
             do {
                 Console.WriteLine("*****************************************************");
                 Console.WriteLine("Welcome to Programming 2 - Assignment 4 - Winter 2025");
@@ -34,19 +34,19 @@ namespace Assignment4_Elnara
                     "\n 4 - Load the leaderboard from a file" +
                     "\n 5 - Clear the leaderboard" +
                     "\n 6 - Quit");
-            } while(userChoice != 6); // while input not 6 keep displaying the menu
+            } while(userChoice != 6);
 
             bool successfulConversion = int.TryParse(Console.ReadLine(), out userChoice);  // get user input
-            while (!successfulConversion) // check if the input is valid
+            while (!successfulConversion)
             {
-                Console.Write("Error, Invalid Input. Please choose from the menu options (1-6): "); // display error message
+                Console.Write("Error, Invalid Input. Please choose from the menu options (1-6): ");
                 successfulConversion = int.TryParse(Console.ReadLine(), out userChoice);
             }
 
             switch(userChoice)
             {
                 case 1:
-                    AddWinner(); // Add winner to leaderboard
+                    // Add winner to leaderboard
                     break;
                 case 2:
                     // Delete an entry from the leaderboard
@@ -70,7 +70,5 @@ namespace Assignment4_Elnara
 
             Console.ReadLine();
         }
-
-        
     }
 }

@@ -161,26 +161,7 @@ namespace Assignment4_Elnara
             }
         }
         static void DeleteEntry()
-        {
-            Console.Write("Enter the name of the winner you want to delete: ");
-            string playerName = Console.ReadLine(); // get the name of the winner to delete
-
-            while (string.IsNullOrEmpty(playerName) || !Regex.IsMatch(playerName, @"^[A-Za-z]+$")) // to make sure the input is a valid character
-            {
-                Console.Write("Invalid input. Name can't be null, empty or numerical. Please enter a valid name: "); // display according error message 
-                playerName = Console.ReadLine();
-            }
-            var existingEntry = LeaderboardEntry.FirstOrDefault(x => x.name == playerName); // check if the winner is in the leaderboard
-            if (existingEntry.name != null) // if the winner is in the leaderboard
-            {
-                LeaderboardEntry.Remove(existingEntry); // remove the winner from the leaderboard
-                Console.WriteLine($"{playerName} has been successfully removed from the leaderboard.");
-            }
-            else
-            {
-                Console.WriteLine($"{playerName} is not in the leaderboard. Please try again."); // if the winner is not in the leaderboard
-            }
-            DisplayLeaderboard();
+        { 
         }
 
         static void SaveToFile()

@@ -98,29 +98,16 @@ namespace Assignment4_Elnara
             entry.name = playerName; // store the name of the winner in the struct
 
             Console.Write($"Enter the score of {playerName}: ");
-           
             while (!int.TryParse(Console.ReadLine(), out entry.score) || entry.score < 0)
             {
                 Console.Write("Invalid input. Please enter a valid positive score: ");
             }
 
             Console.Write($"Enter the game ending time (yyyy-MM-dd HH:mm:ss): "); // get the end time of the game
-            while (true)
+
+            while (!DateTime.TryParse(Console.ReadLine(), out entry.endTime))
             {
-                string input = Console.ReadLine();
-                if(!DateTime.TryParse(input, out entry.endTime))
-                {
-                    Console.Write("Invalid input. Please enter a valid game end time (yyyy-MM-dd HH:mm:ss): ");
-                }
-                else if (entry.endTime > DateTime.Now) // check if the end time is in the future
-                {
-                    Console.Write("Invalid input. Please enter a valid game end time (yyyy-MM-dd HH:mm:ss): ");
-                }
-                else
-                {
-                    break; // valid date entered
-                }
-                Console.Write("Enter the game ending time (yyyy-MM-dd HH:mm:ss): ");
+                Console.Write("Invalid input. Please enter a valid game end time (yyyy-MM-dd HH:mm:ss): ");
             }
 
             Console.Write($"Enter the number of games played by {playerName} : ");
@@ -130,7 +117,7 @@ namespace Assignment4_Elnara
             }
 
             Console.Write($"Enter the age of {playerName}: ");
-            while (!int.TryParse(Console.ReadLine(), out entry.age) || entry.age < 1 || entry.age > 130) // Max age is 130
+            while (!int.TryParse(Console.ReadLine(), out entry.age) || entry.age < 0 || entry.age > 130) // Max age is 130
             {
                 Console.Write("Invalid input. Please enter a valid age: ");
             }
@@ -164,14 +151,24 @@ namespace Assignment4_Elnara
         // Method to insert the new entry in the sorted order
         static List <LeaderboardEntry> InsertSortedEntry(List<LeaderboardEntry> leaderboard, LeaderboardEntry entry)
         {
-            int index = 0;
-            while(index < leaderboard.Count && entry.score < leaderboard[index].score) // loop through the leaderboard
+            if (leaderboard.Count == 0) // if the leaderboard is empty
             {
-                index++; // increment the index
+                int index = 0;
+                leaderboard.Insert(index, entry); // add the entry to the leaderboard
             }
-            leaderboard.Insert(index, entry); // insert the new entry in the sorted order
+            else
+            {
+                for (int i = 0; i < leaderboard.Count; i++) // loop through the leaderboard
+                {
+                    if (entry.score > leaderboard[i].score) // if the new entry score is higher than the current entry score
+                    {
+                        leaderboard.Insert(i, entry); // insert the new entry in the sorted order
+                        break;
+                    }
+                }
+            }
+
             return leaderboard;
-           
         }
         //Method to delete an entry from the leaderboard
         static List<LeaderboardEntry> DeleteEntry(List<LeaderboardEntry> leaderboard)
@@ -207,7 +204,7 @@ namespace Assignment4_Elnara
             string? filePath = Console.ReadLine(); // get the file name to save the leaderboard
             while (string.IsNullOrEmpty(filePath)) // to make sure the input is not null or empty
             {
-                Console.Write("Invalid input. File path can't be null or empty. Please enter a valid file path: "); // display according error message 
+                Console.Write("Invalid input. File name can't be null or empty. Please enter a valid file name: "); // display according error message 
                 filePath = Console.ReadLine();
             }
             StreamWriter? writer = null;
@@ -224,37 +221,34 @@ namespace Assignment4_Elnara
                     writer.WriteLine($"{entry.name},{entry.score},{entry.endTime:yyyy-MM-dd HH:mm:ss},{entry.gamesPlayed},{entry.age}"); // write the entry to the file
                 }
 
-                Console.WriteLine($"The leaderboard has been successfully saved!");
-                Console.WriteLine("Press any keys to continuer");
-                Console.ReadKey();
+                Console.WriteLine($"The leaderboard has been successfully saved to {filePath}.");
             }
             catch (Exception ex) 
             {
                 Console.WriteLine($"An error occurred while saving the leaderboard: {ex.Message}"); // display the error message
-                Console.WriteLine("Press any keys to continuer");
-                Console.ReadKey();
             }
             finally 
             {
               writer?.Close(); // close the writer
             }
 
+            Thread.Sleep(2000); // wait for 2 seconds
             Console.Clear();
         }
 
         static List<LeaderboardEntry> LoadFromFile( List<LeaderboardEntry> leaderboard)
         {
-            Console.Write("Enter the full file path to load the leaderboard: ");
+            Console.Write("Enter the file name to load the leaderboard: ");
             string? filePath = Console.ReadLine(); // get the file name to load the leaderboard
             while (string.IsNullOrEmpty(filePath)) // to make sure the input is not null or empty
             {
-                Console.Write("Invalid input. File path can't be null or empty. Please enter a valid file path: "); // display according error message 
+                Console.Write("Invalid input. File name can't be null or empty. Please enter a valid file name: "); // display according error message 
                 filePath = Console.ReadLine();
             }
             
             if (!File.Exists(filePath)) // check if the file exists
             {
-                Console.WriteLine($"The file path: {filePath} was not found."); // if the file does not exist or not found
+                Console.WriteLine($"The file {filePath} was not found."); // if the file does not exist or not found
                 return leaderboard;
             }
 
@@ -267,22 +261,16 @@ namespace Assignment4_Elnara
                 while ((line = reader.ReadLine()) != null) // read the file line by line
                 {
                     string[] parts = line.Split(','); // split the line by comma
+                    LeaderboardEntry entry = new LeaderboardEntry(); // create a new instance of the struct
 
-                    if (parts.Length == 5) 
-                    {
-                        LeaderboardEntry entry = new LeaderboardEntry(); // create a new instance of the struct
-                        {
-                            entry.name = parts[0]; // store the name of the winner
-                            entry.score = int.Parse(parts[1]); // store the score of the winner
-                            entry.endTime = DateTime.Parse(parts[2]); // store the end time of the game
-                            entry.gamesPlayed = int.Parse(parts[3]); // store the number of games played
-                            entry.age = int.Parse(parts[4]); // store the age of the winner
-                            
-                        };
-                        leaderboard = InsertSortedEntry(leaderboard, entry); // insert the entry in the sorted order
-                    }
+                    entry.name = parts[0]; // store the name of the winner
+                    entry.score = int.Parse(parts[1]); // store the score of the winner
+                    entry.endTime = DateTime.Parse(parts[2]); // store the end time of the game
+                    entry.gamesPlayed = int.Parse(parts[3]); // store the number of games played
+                    entry.age = int.Parse(parts[4]); // store the age of the winner
+                    leaderboard = InsertSortedEntry(leaderboard, entry); // insert the entry in the sorted order
                 }
-                Console.WriteLine($"The leaderboard has been successfully loaded!");
+                Console.WriteLine($"The leaderboard has been successfully loaded from {filePath}.");
             }
             catch(Exception ex)
             {

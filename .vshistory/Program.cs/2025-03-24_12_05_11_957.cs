@@ -98,29 +98,16 @@ namespace Assignment4_Elnara
             entry.name = playerName; // store the name of the winner in the struct
 
             Console.Write($"Enter the score of {playerName}: ");
-           
             while (!int.TryParse(Console.ReadLine(), out entry.score) || entry.score < 0)
             {
                 Console.Write("Invalid input. Please enter a valid positive score: ");
             }
 
             Console.Write($"Enter the game ending time (yyyy-MM-dd HH:mm:ss): "); // get the end time of the game
-            while (true)
+
+            while (!DateTime.TryParse(Console.ReadLine(), out entry.endTime))
             {
-                string input = Console.ReadLine();
-                if(!DateTime.TryParse(input, out entry.endTime))
-                {
-                    Console.Write("Invalid input. Please enter a valid game end time (yyyy-MM-dd HH:mm:ss): ");
-                }
-                else if (entry.endTime > DateTime.Now) // check if the end time is in the future
-                {
-                    Console.Write("Invalid input. Please enter a valid game end time (yyyy-MM-dd HH:mm:ss): ");
-                }
-                else
-                {
-                    break; // valid date entered
-                }
-                Console.Write("Enter the game ending time (yyyy-MM-dd HH:mm:ss): ");
+                Console.Write("Invalid input. Please enter a valid game end time (yyyy-MM-dd HH:mm:ss): ");
             }
 
             Console.Write($"Enter the number of games played by {playerName} : ");

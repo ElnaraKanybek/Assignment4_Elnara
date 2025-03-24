@@ -207,7 +207,7 @@ namespace Assignment4_Elnara
                 Console.Write("Invalid input. File name can't be null or empty. Please enter a valid file name: "); // display according error message 
                 filePath = Console.ReadLine();
             }
-            StreamWriter? writer = null;
+            StreamWriter writer = null;
             try
             {
                 string? directory = Path.GetDirectoryName(filePath); // get the directory name
@@ -257,7 +257,7 @@ namespace Assignment4_Elnara
             {
                 leaderboard.Clear(); // clear the leaderboard
                 reader = new StreamReader(filePath); // create a new instance of the stream reader
-                string? line;
+                string line;
                 while ((line = reader.ReadLine()) != null) // read the file line by line
                 {
                     string[] parts = line.Split(','); // split the line by comma

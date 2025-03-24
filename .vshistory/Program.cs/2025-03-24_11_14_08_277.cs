@@ -23,7 +23,7 @@ namespace Assignment4_Elnara
         {
             public string name;
             public int score;
-            public DateTime endTime; //as DateTime
+            public DateTime endTime;
             public int gamesPlayed; // additional field
             public int age; // additional field
 
@@ -75,7 +75,7 @@ namespace Assignment4_Elnara
                         running = QuitProgram(); // Quit the program
                         break;
                     default:
-                        Console.WriteLine("Invalid input. Please choose from the menu options (1-6)"); // display default error message
+                        Console.WriteLine("Invalid input. Please choose from the menu options (1-6)");
                         break;
                 }
             }
@@ -89,7 +89,7 @@ namespace Assignment4_Elnara
             LeaderboardEntry entry = new LeaderboardEntry(); // create a new instance of the struct
 
             Console.Write("Enter the name of the winner: ");
-            string ? playerName = Console.ReadLine(); // get the name of the winner
+            string playerName = Console.ReadLine(); // get the name of the winner
             while (string.IsNullOrEmpty(playerName) || !Regex.IsMatch(playerName, @"^[A-Za-z]+$")) // to make sure the input is a valid character
             {
                 Console.Write("Invalid input. Name can't be null, empty or numerical. Please enter a valid name: "); // display according error message 
@@ -103,7 +103,7 @@ namespace Assignment4_Elnara
                 Console.Write("Invalid input. Please enter a valid positive score: ");
             }
 
-            Console.Write($"Enter the game ending time (yyyy-MM-dd HH:mm:ss): "); // get the end time of the game
+            Console.Write($"Enter the game ending time (yyyy-MM-dd HH:mm:ss): ");
 
             while (!DateTime.TryParse(Console.ReadLine(), out entry.endTime))
             {
@@ -117,7 +117,7 @@ namespace Assignment4_Elnara
             }
 
             Console.Write($"Enter the age of {playerName}: ");
-            while (!int.TryParse(Console.ReadLine(), out entry.age) || entry.age < 0 || entry.age > 130) // Max age is 130
+            while (!int.TryParse(Console.ReadLine(), out entry.age) || entry.age < 0 || entry.age > 130)
             {
                 Console.Write("Invalid input. Please enter a valid age: ");
             }
@@ -133,7 +133,7 @@ namespace Assignment4_Elnara
                 }
                 else
                 {
-                    Console.WriteLine("The winner is already in the leaderboard with a higher score. Please try again."); // if the new score is lower than the existing score
+                    Console.WriteLine("The winner is already in the leaderboard with a higher score. Please try again.");
                 }
             }
             else
@@ -174,7 +174,7 @@ namespace Assignment4_Elnara
         static List<LeaderboardEntry> DeleteEntry(List<LeaderboardEntry> leaderboard)
         {
             Console.Write("Enter the name of the winner you want to delete: ");
-            string? playerName = Console.ReadLine(); // get the name of the winner to delete
+            string playerName = Console.ReadLine(); // get the name of the winner to delete
 
             while (string.IsNullOrEmpty(playerName) || !Regex.IsMatch(playerName, @"^[A-Za-z]+$")) // to make sure the input is a valid character
             {
@@ -201,16 +201,16 @@ namespace Assignment4_Elnara
         static void SaveToFile(List<LeaderboardEntry> leaderboard)
         {
             Console.Write("Enter the full file path to save the leaderboard: ");
-            string? filePath = Console.ReadLine(); // get the file name to save the leaderboard
+            string filePath = Console.ReadLine(); // get the file name to save the leaderboard
             while (string.IsNullOrEmpty(filePath)) // to make sure the input is not null or empty
             {
                 Console.Write("Invalid input. File name can't be null or empty. Please enter a valid file name: "); // display according error message 
                 filePath = Console.ReadLine();
             }
-            StreamWriter? writer = null;
+            StreamWriter writer = null;
             try
             {
-                string? directory = Path.GetDirectoryName(filePath); // get the directory name
+                string directory = Path.GetDirectoryName(filePath); // get the directory name
                 if (!Directory.Exists(directory)) // check if the directory exists
                 {
                     Directory.CreateDirectory(directory); // create the directory
@@ -239,25 +239,25 @@ namespace Assignment4_Elnara
         static List<LeaderboardEntry> LoadFromFile( List<LeaderboardEntry> leaderboard)
         {
             Console.Write("Enter the file name to load the leaderboard: ");
-            string? filePath = Console.ReadLine(); // get the file name to load the leaderboard
+            string filePath = Console.ReadLine(); // get the file name to load the leaderboard
             while (string.IsNullOrEmpty(filePath)) // to make sure the input is not null or empty
             {
                 Console.Write("Invalid input. File name can't be null or empty. Please enter a valid file name: "); // display according error message 
                 filePath = Console.ReadLine();
             }
-            
+            StreamReader reader = null;
             if (!File.Exists(filePath)) // check if the file exists
             {
                 Console.WriteLine($"The file {filePath} was not found."); // if the file does not exist or not found
                 return leaderboard;
             }
 
-            StreamReader? reader = null;
+            StreamReader reader = null;
             try
             {
                 leaderboard.Clear(); // clear the leaderboard
                 reader = new StreamReader(filePath); // create a new instance of the stream reader
-                string? line;
+                string line;
                 while ((line = reader.ReadLine()) != null) // read the file line by line
                 {
                     string[] parts = line.Split(','); // split the line by comma
@@ -326,7 +326,7 @@ namespace Assignment4_Elnara
         static bool QuitProgram()
         {
             Console.Write("Are you sure you want to quit? (Y/N): ");
-            string? choice = Console.ReadLine(); // get the user choice
+            string choice = Console.ReadLine(); // get the user choice
             if(choice.ToUpper() == "Y") // if the user choice is Y
             {
                 Console.WriteLine("Thank you for using the leaderboard. Goodbye!");

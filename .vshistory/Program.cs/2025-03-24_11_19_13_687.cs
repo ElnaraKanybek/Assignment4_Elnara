@@ -174,7 +174,7 @@ namespace Assignment4_Elnara
         static List<LeaderboardEntry> DeleteEntry(List<LeaderboardEntry> leaderboard)
         {
             Console.Write("Enter the name of the winner you want to delete: ");
-            string? playerName = Console.ReadLine(); // get the name of the winner to delete
+            string playerName = Console.ReadLine(); // get the name of the winner to delete
 
             while (string.IsNullOrEmpty(playerName) || !Regex.IsMatch(playerName, @"^[A-Za-z]+$")) // to make sure the input is a valid character
             {
@@ -201,16 +201,16 @@ namespace Assignment4_Elnara
         static void SaveToFile(List<LeaderboardEntry> leaderboard)
         {
             Console.Write("Enter the full file path to save the leaderboard: ");
-            string? filePath = Console.ReadLine(); // get the file name to save the leaderboard
+            string filePath = Console.ReadLine(); // get the file name to save the leaderboard
             while (string.IsNullOrEmpty(filePath)) // to make sure the input is not null or empty
             {
                 Console.Write("Invalid input. File name can't be null or empty. Please enter a valid file name: "); // display according error message 
                 filePath = Console.ReadLine();
             }
-            StreamWriter? writer = null;
+            StreamWriter writer = null;
             try
             {
-                string? directory = Path.GetDirectoryName(filePath); // get the directory name
+                string directory = Path.GetDirectoryName(filePath); // get the directory name
                 if (!Directory.Exists(directory)) // check if the directory exists
                 {
                     Directory.CreateDirectory(directory); // create the directory
@@ -239,7 +239,7 @@ namespace Assignment4_Elnara
         static List<LeaderboardEntry> LoadFromFile( List<LeaderboardEntry> leaderboard)
         {
             Console.Write("Enter the file name to load the leaderboard: ");
-            string? filePath = Console.ReadLine(); // get the file name to load the leaderboard
+            string filePath = Console.ReadLine(); // get the file name to load the leaderboard
             while (string.IsNullOrEmpty(filePath)) // to make sure the input is not null or empty
             {
                 Console.Write("Invalid input. File name can't be null or empty. Please enter a valid file name: "); // display according error message 
@@ -252,12 +252,12 @@ namespace Assignment4_Elnara
                 return leaderboard;
             }
 
-            StreamReader? reader = null;
+            StreamReader reader = null;
             try
             {
                 leaderboard.Clear(); // clear the leaderboard
                 reader = new StreamReader(filePath); // create a new instance of the stream reader
-                string? line;
+                string line;
                 while ((line = reader.ReadLine()) != null) // read the file line by line
                 {
                     string[] parts = line.Split(','); // split the line by comma
@@ -326,7 +326,7 @@ namespace Assignment4_Elnara
         static bool QuitProgram()
         {
             Console.Write("Are you sure you want to quit? (Y/N): ");
-            string? choice = Console.ReadLine(); // get the user choice
+            string choice = Console.ReadLine(); // get the user choice
             if(choice.ToUpper() == "Y") // if the user choice is Y
             {
                 Console.WriteLine("Thank you for using the leaderboard. Goodbye!");

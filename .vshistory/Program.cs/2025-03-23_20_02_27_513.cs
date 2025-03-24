@@ -81,9 +81,10 @@ namespace Assignment4_Elnara
             Console.ReadLine();
         }
 
-        // Method to add a winner to the leaderboard
         static void AddWinner(List<Winner> winnerList)
         {
+
+
             LeaderboardEntry entry = new LeaderboardEntry(); // create a new instance of the struct
 
             Console.Write("Enter the name of the winner: ");
@@ -141,7 +142,6 @@ namespace Assignment4_Elnara
             DisplayLeaderboard(); 
 
         }
-        // Method to insert the new entry in the sorted order
         static void InsertSortedEntry(LeaderboardEntry entry)
         {
             if (LeaderboardEntry.Count == 0) // if the leaderboard is empty
@@ -160,7 +160,6 @@ namespace Assignment4_Elnara
                 }
             }
         }
-        //Method to delete an entry from the leaderboard
         static void DeleteEntry()
         {
             Console.Write("Enter the name of the winner you want to delete: ");
@@ -184,24 +183,8 @@ namespace Assignment4_Elnara
             DisplayLeaderboard();
         }
 
-        // Method to save the leaderboard to a CSV file
         static void SaveToFile()
         {
-            Console.Write("Enter the file name to save the leaderboard: ");
-            string fileName = Console.ReadLine(); // get the file name to save the leaderboard
-            while (string.IsNullOrEmpty(fileName)) // to make sure the input is not null or empty
-            {
-                Console.Write("Invalid input. File name can't be null or empty. Please enter a valid file name: "); // display according error message 
-                fileName = Console.ReadLine();
-            }
-            using (StreamWriter writer = new StreamWriter(fileName)) // create a new instance of the stream writer
-            {
-                foreach (var entry in LeaderboardEntry) // loop through the leaderboard
-                {
-                    writer.WriteLine($"{entry.name},{entry.score},{entry.endTime},{entry.gamesPlayed},{entry.age}"); // write the entry to the file
-                }
-            }
-            Console.WriteLine($"The leaderboard has been successfully saved to {fileName}.");
         }
 
         static void LoadFromFile()

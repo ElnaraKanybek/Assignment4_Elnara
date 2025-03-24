@@ -81,9 +81,10 @@ namespace Assignment4_Elnara
             Console.ReadLine();
         }
 
-        // Method to add a winner to the leaderboard
         static void AddWinner(List<Winner> winnerList)
         {
+
+
             LeaderboardEntry entry = new LeaderboardEntry(); // create a new instance of the struct
 
             Console.Write("Enter the name of the winner: ");
@@ -141,7 +142,6 @@ namespace Assignment4_Elnara
             DisplayLeaderboard(); 
 
         }
-        // Method to insert the new entry in the sorted order
         static void InsertSortedEntry(LeaderboardEntry entry)
         {
             if (LeaderboardEntry.Count == 0) // if the leaderboard is empty
@@ -160,7 +160,6 @@ namespace Assignment4_Elnara
                 }
             }
         }
-        //Method to delete an entry from the leaderboard
         static void DeleteEntry()
         {
             Console.Write("Enter the name of the winner you want to delete: ");
@@ -184,7 +183,6 @@ namespace Assignment4_Elnara
             DisplayLeaderboard();
         }
 
-        // Method to save the leaderboard to a CSV file
         static void SaveToFile()
         {
             Console.Write("Enter the file name to save the leaderboard: ");
